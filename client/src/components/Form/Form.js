@@ -11,7 +11,7 @@ const Form = ({ currentId, setCurrentId }) => {
     creator: '',
     title: '',
     message: '',
-    tags: '',
+    tags: [],
     selectedFile: '',
   });
   const post = useSelector((state) =>
@@ -24,16 +24,37 @@ const Form = ({ currentId, setCurrentId }) => {
     if (post) setPostData(post);
   }, [post]);
 
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: [],
+      selectedFile: '',
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !postData.creator &&
+      !postData.title &&
+      !postData.message &&
+      postData.tags.length === 0 &&
+      !postData.selectedFiles
+    ) {
+      return;
+    }
 
     if (currentId) {
       dispatch(updatePost(currentId, postData));
     } else {
       dispatch(createPost(postData));
     }
+    clear();
   };
-  const clear = () => {};
 
   return (
     <Paper className={classes.paper}>
@@ -43,7 +64,10 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant='h6'> Creating a Memory</Typography>
+        <Typography variant='h6'>
+          {' '}
+          {currentId ? 'Editing' : 'Creating'} a memory
+        </Typography>
         <TextField
           name='createor'
           variant='outlined'
@@ -79,9 +103,9 @@ const Form = ({ currentId, setCurrentId }) => {
           variant='outlined'
           label='Tags'
           fullWidth
-          value={postData.tags}
+          value={postData.tags.join(' ')}
           onChange={(e) => {
-            setPostData({ ...postData, tags: e.target.value });
+            setPostData({ ...postData, tags: e.target.value.split(' ') });
           }}
         />
         <div className={classes.fileInput}>

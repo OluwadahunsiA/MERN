@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from './Post/Post';
 import { Grid, CircularProgress } from '@material-ui/core';
 import useStyles from './styles';
@@ -17,9 +17,13 @@ const Posts = ({ setCurrentId }) => {
       alignItems='stretch'
       spacing={3}
     >
-      {posts.map((post) => (
-        <Grid key={post._id} item xs={12} sm={6}>
-          <Post post={post} setCurrentId={setCurrentId} />
+      {posts?.map((post, index) => (
+        <Grid key={post._id + index} item xs={12} sm={6}>
+          <Post
+            key={post._id + index}
+            post={post}
+            setCurrentId={setCurrentId}
+          />
         </Grid>
       ))}
     </Grid>
