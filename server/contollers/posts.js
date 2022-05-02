@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const PostMessage = require('../models/postMessage');
 
 exports.getPosts = async (req, res) => {
@@ -28,6 +29,30 @@ exports.createPost = async (req, res) => {
     res.status(409).json({
       status: 'fail',
       error: err.message,
+    });
+  }
+};
+
+exports.updatePost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).send('Post does not exist');
+  }
+
+  try {
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, req.body, {
+      new: true,
+    });
+
+    res.json({
+      status: 'success',
+      data: updatedPost,
+    });
+  } catch (err) {
+    res.json({
+      status: 'fail',
+      message: err.message,
     });
   }
 };
