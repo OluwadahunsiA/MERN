@@ -1,10 +1,3 @@
-// import express from 'express';
-// import bodyParser from 'body-parser';
-// import mongoose from 'mongoose';
-// import cors from 'cors';
-// import path from 'path';
-// import dotenv from 'dotenv';
-
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -12,15 +5,13 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-dotenv.config({ path: path.resolve(`${__dirname}`, '../vars/config.env') });
+const postRoutes = require('./routes/posts');
 
 const app = express();
 
-app.use(bodyParser.json({ limit: '30mb', extended: true }));
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
-app.use(cors());
+dotenv.config({ path: path.resolve(`${__dirname}`, '../vars/config.env') });
 
-console.log(process.env.CONNECTION_URL);
+//DB connection
 
 const CONNECTION_URL = process.env.CONNECTION_URL.replace(
   '<password>',
@@ -38,3 +29,11 @@ mongoose
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
   .catch((err) => console.log(err.message));
+
+// Middlewares
+
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
+app.use(cors());
+
+app.use('/posts', postRoutes);
