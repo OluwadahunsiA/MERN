@@ -17,10 +17,11 @@ import memories from '../../../images/memories.png';
 
 import { deletePost } from '../../../actions/posts';
 
-const Post = ({ post, setCurrentId, setId }) => {
+const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
  
+
   return (
     <Card className={classes.card}>
       <CardMedia
