@@ -15,12 +15,11 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import memories from '../../../images/memories.png';
 
-import { deletePost } from '../../../actions/posts';
+import { deletePost, likePost } from '../../../actions/posts';
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
- 
 
   return (
     <Card className={classes.card}>
@@ -49,7 +48,7 @@ const Post = ({ post, setCurrentId }) => {
 
       <div className={classes.details}>
         <Typography variant='body2' color='textSecondary'>
-          {post.tags?.map((tag) => `#${tag}`)}
+          {post.tags?.map((tag) => ` #${tag}`)}
         </Typography>
       </div>
       <Typography className={classes.title} variant='h5'>
@@ -58,16 +57,27 @@ const Post = ({ post, setCurrentId }) => {
       </Typography>
 
       <CardContent>
-        <Typography className={classes.message} variant='h5' gutterBottom>
+        <Typography
+          className={classes.message}
+          variant='body2'
+          color='textSecondary'
+          component='p'
+        >
           {' '}
           {post.message}
         </Typography>
       </CardContent>
 
       <CardActions className={classes.cardActions}>
-        <Button size='small' color='primary' onClick={() => {}}>
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => {
+            dispatch(likePost(post._id));
+          }}
+        >
           <ThumbUpAltIcon fontSize='small' />
-          Like
+          &nbsp; Like &nbsp;
           {post.likeCount}
         </Button>
         <Button

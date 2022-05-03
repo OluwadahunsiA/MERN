@@ -33,6 +33,24 @@ exports.createPost = async (req, res) => {
   }
 };
 
+exports.likePost = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const post = await PostMessage.findById(id);
+    const editedPost = { likeCount: post.likeCount + 1 };
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, editedPost, {
+      new: true,
+    });
+
+    res.json(updatedPost);
+  } catch (err) {
+    res.json({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};
+
 exports.updatePost = async (req, res) => {
   const { id: _id } = req.params;
 
