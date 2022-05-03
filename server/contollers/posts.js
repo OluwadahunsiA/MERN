@@ -77,7 +77,6 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   try {
     await PostMessage.findByIdAndDelete(id);

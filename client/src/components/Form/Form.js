@@ -142,8 +142,6 @@ const Form = ({ currentId, setCurrentId }) => {
       </form>
     </Paper>
   );
-
-  return <h1>FORM</h1>;
 };
 
 export default Form;

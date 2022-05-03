@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Post from './Post/Post';
 import { Grid, CircularProgress } from '@material-ui/core';
 import useStyles from './styles';
