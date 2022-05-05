@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-export const signIn = async (req, res) => {
+exports.signIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -31,23 +31,27 @@ export const signIn = async (req, res) => {
   }
 };
 
-export const signUp = async (req, res) => {
+exports.signUp = async (req, res) => {
   const { email, password, firstName, lastName, confirmPassword } = req.body;
 
   try {
-    const user = User.findOne({ email });
+    const user = await User.findOne({ email });
+
     if (user) return res.status(400).json({ message: 'user already exists' });
 
     if (password !== confirmPassword)
       return res.status(400).json({ message: 'Passwords do not match' });
 
     const hashedPassword = await bcrypt.hash(password, 12);
+    console.log(hashedPassword);
 
     const result = await User.create({
       email,
-      hashedPassword,
+      password: hashedPassword,
       name: `${firstName} ${lastName}`,
     });
+
+    console.log(result);
 
     const token = jwt.sign(
       { email: result.email, id: result._id },
