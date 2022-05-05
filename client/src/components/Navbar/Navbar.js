@@ -22,8 +22,9 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: LOGOUT });
 
-    history.push('/');
     setUser(null);
+    localStorage.clear();
+    history.push('/auth');
   };
 
   return (
