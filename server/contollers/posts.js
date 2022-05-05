@@ -17,12 +17,13 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
+  console.log(req.body);
   try {
     const post = req.body;
     const newPosts = await PostMessage.create({
       ...post,
       creator: req.userId,
-      createdAt: new Date().toISOString,
+      createdAt: new Date().toISOString(),
     });
 
     res.status(201).json({
