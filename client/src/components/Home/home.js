@@ -4,7 +4,6 @@ import useStyles from './styles';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import { useDispatch } from 'react-redux';
-
 import { getPosts } from '../../actions/posts';
 
 const Home = () => {

@@ -25,9 +25,9 @@ const Auth = () => {
   const switchMode = () => {
     setIsSignUp((prev) => !prev);
   };
-  const googleSuccess =  (res) => {
-    const result =  res?.profileObj;
-    const token =  res?.tokenId;
+  const googleSuccess = (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
 
     try {
       dispatch({ type: 'AUTH', data: { result, token } });
