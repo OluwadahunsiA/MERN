@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const postRoutes = require('./routes/posts');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -37,3 +38,4 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.use('/users', userRoutes);

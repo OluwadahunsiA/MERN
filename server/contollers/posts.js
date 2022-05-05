@@ -35,10 +35,22 @@ exports.createPost = async (req, res) => {
 
 exports.likePost = async (req, res, next) => {
   const id = req.params.id;
+
+  if (!req.userId) return res.json({ message: 'You are not authenticated' });
+
   try {
     const post = await PostMessage.findById(id);
-    const editedPost = { likeCount: post.likeCount + 1 };
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, editedPost, {
+
+    const index = post.likes.findIndex((id) => id === String(req.userId));
+
+    if (index === -1) {
+      post.likes.push(req.userId);
+    } else {
+      post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+
+    // const editedPost = { likeCount: post.likeCount + 1 };
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
       new: true,
     });
 
