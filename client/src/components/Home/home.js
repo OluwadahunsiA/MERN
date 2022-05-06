@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grow,
@@ -14,8 +14,8 @@ import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
-import { useDispatch } from 'react-redux';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsBySearch } from '../../actions/posts';
 import Paginate from '../Pagination/Pagination';
 
 function useQuery() {
@@ -30,13 +30,11 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const query = useQuery();
+
   const history = useHistory();
   const page = query.get('page') || 1;
-  const searchQuery = query.get('searchQuery');
 
-  // useEffect(() => {
-  //   dispatch(getPosts());
-  // }, [dispatch, currentId]);
+  const searchQuery = query.get('searchQuery');
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {

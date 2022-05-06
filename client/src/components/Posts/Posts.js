@@ -5,11 +5,14 @@ import useStyles from './styles';
 import { useSelector } from 'react-redux';
 
 const Posts = ({ setCurrentId }) => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
+  console.log(posts);
 
   const classes = useStyles();
 
-  return !posts?.length ? (
+  if (!posts.length && !isLoading) return 'No Posts';
+
+  return isLoading ? (
     <CircularProgress />
   ) : (
     <Grid className={classes.container} container alignItems="stretch" spacing={3}>
