@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LOGOUT } from '../../constants/actionTypes';
 import { useHistory, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
   const classes = useStyles();
@@ -14,18 +15,28 @@ const Navbar = () => {
   const history = useHistory();
   const location = useLocation();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('profile'));
-    setUser(user);
-  }, [location.pathname]);
-
   const logout = () => {
     dispatch({ type: LOGOUT });
 
     setUser(null);
     localStorage.clear();
-    history.push('/auth');
+    history.push('/');
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+    setUser(user);
+
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
+  }, [location.pathname]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

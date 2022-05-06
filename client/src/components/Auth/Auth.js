@@ -29,8 +29,7 @@ const Auth = () => {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
 
-  console.log(initialState);
-  console.log(formData);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

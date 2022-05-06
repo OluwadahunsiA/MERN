@@ -17,7 +17,6 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-  console.log(req.body);
   try {
     const post = req.body;
     const newPosts = await PostMessage.create({
