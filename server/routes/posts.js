@@ -5,11 +5,14 @@ const {
   updatePost,
   deletePost,
   likePost,
+  getPostsBySearch,
 } = require('../contollers/posts');
 
 const auth = require('../middleware/auth');
 
 const router = express.Router();
+
+router.route('/search').get(getPostsBySearch);
 
 router.route('/').get(getPosts).post(auth, createPost).patch(likePost);
 
