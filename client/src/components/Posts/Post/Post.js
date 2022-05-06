@@ -37,7 +37,7 @@ const Post = ({ post, setCurrentId }) => {
 
       {user &&
         (user?.result?.googleId === post?.creator ||
-          user?.result?.id === post?.creator) && (
+          user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
             <Button
               style={{ color: 'white' }}
@@ -84,8 +84,9 @@ const Post = ({ post, setCurrentId }) => {
             &nbsp; Like &nbsp;
             {post.likes.length}
           </Button>
+
           {(user?.result?.googleId === post?.creator ||
-            user?.result?.id === post?.creator) && (
+            user?.result?._id === post?.creator) && (
             <Button
               size="small"
               color="primary"
