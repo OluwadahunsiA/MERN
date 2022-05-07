@@ -7,6 +7,7 @@ const {
   likePost,
   getPostsBySearch,
   getPost,
+  commentPost,
 } = require('../contollers/posts');
 
 const auth = require('../middleware/auth');
@@ -24,5 +25,6 @@ router
   .delete(auth, deletePost);
 
 router.route('/:id/likePost').patch(auth, likePost);
+router.route('/:id/commentPost').post(auth, commentPost);
 
 module.exports = router;

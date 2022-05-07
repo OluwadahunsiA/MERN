@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useStyles from './styles';
 import {
   Card,
@@ -15,7 +15,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import memories from '../../../images/memories.png';
-
 import { deletePost, likePost } from '../../../actions/posts';
 import { useHistory } from 'react-router-dom';
 
@@ -27,6 +26,12 @@ const Post = ({ post, setCurrentId }) => {
 
   const openPost = () => {
     history.push(`/posts/${post._id}`);
+  };
+
+  const userId = user?.result?.googleId || user?.result?._id;
+
+  const handleClick = () => {
+    dispatch(deletePost(post._id));
   };
 
   return (
@@ -91,18 +96,12 @@ const Post = ({ post, setCurrentId }) => {
           >
             <ThumbUpAltIcon fontSize="small" />
             &nbsp; Like &nbsp;
-            {post.likes.length}
+            {post?.likes.length}
           </Button>
 
           {(user?.result?.googleId === post?.creator ||
             user?.result?._id === post?.creator) && (
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                dispatch(deletePost(post._id));
-              }}
-            >
+            <Button size="small" color="primary" onClick={handleClick}>
               <DeleteIcon fontSize="small" />
               Delete
             </Button>

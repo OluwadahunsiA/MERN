@@ -64,7 +64,7 @@ const Navbar = () => {
             <Button
               variant="contained"
               className={classes.logout}
-              color="secondary "
+              color="secondary"
               onClick={logout}
             >
               Logout
