@@ -9,7 +9,7 @@ import {
   Button
 } from '@material-ui/core';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles';
 import Posts from '../Posts/Posts';

@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const PostMessage = require('../models/postMessage');
 
+exports.getPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await PostMessage.findById({ _id: id });
+
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 exports.getPosts = async (req, res) => {
   const page = req.query.page;
   try {
@@ -79,7 +91,6 @@ exports.likePost = async (req, res, next) => {
       post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
 
-    // const editedPost = { likeCount: post.likeCount + 1 };
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
       new: true,
     });
