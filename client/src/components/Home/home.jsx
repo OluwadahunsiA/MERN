@@ -22,6 +22,8 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+
+// const {page} = useParams()
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [search, setSearch] = useState('');
