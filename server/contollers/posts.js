@@ -75,7 +75,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.likePost = async (req, res, next) => {
+exports.likePost = async (req, res) => {
   const id = req.params.id;
 
   if (!req.userId) return res.json({ message: 'You are not authenticated' });
