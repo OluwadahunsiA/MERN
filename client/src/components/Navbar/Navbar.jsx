@@ -38,7 +38,7 @@ const Navbar = () => {
         logout();
       }
     }
-  }, [location.pathname]);
+  }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
